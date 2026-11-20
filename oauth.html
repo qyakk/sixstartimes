@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Six Star Times - Connect YouTube</title>
+<style>
+body{font-family:system-ui,sans-serif;background:#0d0d12;color:#eee;display:flex;justify-content:center;padding:40px 16px;margin:0}
+.card{max-width:560px;width:100%;background:#17171f;border-radius:14px;padding:28px}
+h1{margin:0 0 8px;font-size:22px}p{color:#bbb;line-height:1.5}
+a.btn,button{display:inline-block;background:#ff2e88;color:#fff;border:0;border-radius:10px;padding:12px 18px;font-size:16px;font-weight:600;text-decoration:none;cursor:pointer}
+code{display:block;background:#000;padding:14px;border-radius:8px;word-break:break-all;font-size:15px;margin:12px 0;color:#7fffb0}
+.small{font-size:13px;color:#888}.small a{color:#aaa}
+</style></head><body><div class="card" id="c"></div>
+<script>
+var CID="256212829561-ke7imnemk3r2v5lnn7pmm2femim42u6s.apps.googleusercontent.com";
+var RED="https://qyakk.github.io/sixstartimes/oauth.html";
+var WF="https://github.com/qyakk/gta6bot/actions/workflows/youtube-login.yml";
+var q=new URLSearchParams(location.search),c=document.getElementById("c");
+if(q.get("code")){
+ c.innerHTML='<h1>Step 2: copy this code</h1><p>It works once and expires in a few minutes, so do step 3 right away.</p><code id="k"></code><button id="b">Copy code</button>'+
+ '<h1 style="margin-top:28px">Step 3: paste it on GitHub</h1><p>On the page that opens, click <b>Run workflow</b>, paste the code into the box, then click the green <b>Run workflow</b> button.</p><a class="btn" href="'+WF+'" target="_blank">Open GitHub</a>';
+ document.getElementById("k").textContent=q.get("code");
+ document.getElementById("b").onclick=function(){navigator.clipboard.writeText(q.get("code"));this.textContent="Copied"};
+}else if(q.get("error")){
+ c.innerHTML='<h1>Sign-in didn&#39;t finish</h1><p id="e"></p><a class="btn" href="oauth.html">Try again</a>';
+ document.getElementById("e").textContent="Google said: "+q.get("error");
+}else{
+ var u="https://accounts.google.com/o/oauth2/v2/auth?"+new URLSearchParams({client_id:CID,redirect_uri:RED,response_type:"code",access_type:"offline",prompt:"consent",scope:"https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube"});
+ c.innerHTML='<h1>Connect the Six Star Times YouTube channel</h1><p>Sign in with <b>qyakkcontact@gmail.com</b> and pick the <b>Six Star Times</b> channel, not your personal one. Google may warn that the app isn&#39;t verified: click <b>Advanced</b>, then <b>Go to Six Star Times Uploader</b>. It&#39;s your own app.</p><a class="btn" href="'+u+'">Step 1: Connect YouTube</a><p class="small">Only used to upload Six Star Times videos. <a href="privacy.html">Privacy policy</a></p>';
+}
+</script></body></html>
